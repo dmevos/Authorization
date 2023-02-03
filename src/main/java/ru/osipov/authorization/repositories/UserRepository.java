@@ -8,14 +8,14 @@ import java.util.Map;
 
 @Repository
 public class UserRepository {
-    Map<List<String>, List<Authorities>> userPermissions =
-            Map.of(List.of("Dima", "123"), List.of(Authorities.WRITE, Authorities.READ),
-                    List.of("Oleg", "456"), List.of(Authorities.WRITE),
-                    List.of("Kolya", "135"), List.of(Authorities.WRITE, Authorities.READ, Authorities.DELETE));
+    Map<User, List<Authorities>> userPermissions =
+            Map.of(new User("Dima", "123"), List.of(Authorities.WRITE, Authorities.READ),
+                    new User("Oleg", "456"), List.of(Authorities.WRITE),
+                    new User("Kolya", "135"), List.of(Authorities.WRITE, Authorities.READ, Authorities.DELETE));
 
-    public List<Authorities> getUserAuthorities(String user, String password) {
-        if (userPermissions.containsKey(List.of(user, password))) {
-            return userPermissions.get(List.of(user, password));
+    public List<Authorities> getUserAuthorities(User user) {
+        if (userPermissions.containsKey(user)) {
+            return userPermissions.get(user);
         }
         return new ArrayList<>();
     }
