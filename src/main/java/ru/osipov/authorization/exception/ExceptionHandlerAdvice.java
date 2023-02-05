@@ -1,10 +1,11 @@
 package ru.osipov.authorization.exception;
 
-import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.validation.ValidationException;
 
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
@@ -14,8 +15,8 @@ public class ExceptionHandlerAdvice {
         return new ResponseEntity<>("Неправильно введены имя пользователя или пароль: " + e.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<String> handleNotValidInput(ConstraintViolationException e) {
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<String> handleNotValidInput(ValidationException e) {
         return new ResponseEntity<>("Косячные имя пользователя или пароль:\r\n" + e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
