@@ -1,0 +1,6 @@
+services:
+  auth:
+    build:
+      './'
+    ports:
+      - '10000:8080'
